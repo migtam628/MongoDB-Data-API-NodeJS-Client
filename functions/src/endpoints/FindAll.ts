@@ -5,9 +5,9 @@ export function FindAll(req: any, res: any) {
   let database:any = req.body.database;
   let dataSource:any = req.body?.dataSource!;
   var DefaultOptions: IDefaultBody = {
-    database: database || "ThePicks",
-    dataSource: dataSource || "Cluster0",
-    collection: collection || "users",
+    database: database,
+    dataSource: dataSource,
+    collection: collection
   };
   let request: TFindBody = {
     ...DefaultOptions,

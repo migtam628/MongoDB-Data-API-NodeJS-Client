@@ -6,9 +6,9 @@ export function InsertMany(req: any, res: any) {
   let database = req.body.database;
   let dataSource = req.body.dataSource;
   var DefaultOptions: IDefaultBody = {
-    database: database || "ThePicks",
-    dataSource: dataSource || "Cluster0",
-    collection: collection || "users",
+    database: database,
+    dataSource: dataSource,
+    collection: collection
   };
   let request: TInsertManyBody = {
     ...DefaultOptions,
