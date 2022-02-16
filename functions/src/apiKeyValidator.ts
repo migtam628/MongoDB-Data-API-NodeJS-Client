@@ -3,7 +3,7 @@ import { MongoDBAPIRequest } from "./MongoDBAPIRequest";
 // create a api key validator middleware function to be used in all endpoints
 
 export const apiKeyValidator = (req: any, res: any, next: any) => {
-    const apiKey = req.query.apiKey;
+    const apiKey = req.query.apiKey || req.body.apiKey;
     let request: TFindOneBody = {
         action: "findOne",
         collection: "apiKeys",
@@ -23,7 +23,7 @@ export const apiKeyValidator = (req: any, res: any, next: any) => {
             });
         }
         MongoDBAPIRequest(request, (r) => {
-            if (apiKey === r.document.apiKey && r.document.apiKeyExpiration > new Date().getTime()) {
+            if (apiKey === r.document?.apiKey && r.document?.apiKeyExpiration > new Date().getTime()) {
                 next();
             } else {
                 res.status(401).json({
