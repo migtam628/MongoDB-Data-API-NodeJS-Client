@@ -1,14 +1,22 @@
 import { MongoDBAPIRequest } from "../MongoDBAPIRequest";
-
-export function DeleteOne(req: any, res: any) {
-  let filter = req.body.filter;
-  let collection = req.body.collection;
-  let database = req.body.database;
-  let dataSource = req.body.dataSource;
+import { Request, Response } from "express";
+export function DeleteOne(
+  req: Request & {
+    body: {
+      action: string;
+      collection: string;
+      database: string;
+      dataSource: string;
+      filter: ObjectConstructor;
+    };
+  },
+  res: Response
+) {
+  let { filter, collection, database, dataSource } = req.body;
   var DefaultOptions: IDefaultBody = {
     database: database,
     dataSource: dataSource,
-    collection: collection
+    collection: collection,
   };
   let request: TDeleteOneBody = {
     ...DefaultOptions,
@@ -16,8 +24,8 @@ export function DeleteOne(req: any, res: any) {
     filter: filter,
   };
   if (filter)
-    MongoDBAPIRequest(request, (r) => res.json({ status: r.name || "OK", data: r, statusCode: r.status || 200})
+    MongoDBAPIRequest(request, (r) =>
+      res.json({ status: r.name || "OK", data: r, statusCode: r.status || 200 })
     );
-  else
-    res.json({ statusCode: 422, error: "filter param is required" });
+  else res.json({ statusCode: 422, error: "filter param is required" });
 }
