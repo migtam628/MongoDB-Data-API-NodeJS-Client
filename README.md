@@ -100,6 +100,7 @@ fetch("http://localhost:3000/find-one", {
 /* 
 {
     status: "OK",
+    statusCode: 200,
     document: {
         _id: "347538673463"
         name: "Tony",
@@ -137,21 +138,24 @@ fetch("http://localhost:3000/find-all", {
 /* 
 {
     status: "OK",
-    documents: [
-      {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-      },
-      {
-        _id: "3753645334",
-        name: "Amanda",
-        age: "32",
-        location: "Hollywood, CA"
-      }
-    ]
-}
+    statusCode: 200,
+    data: {
+      documents: [
+        {
+          _id: "347538673463"
+          name: "Tony",
+          age: 32,
+          location: "Miami, FL"
+        },
+        {
+          _id: "7346572365823",
+          name: "Amanda",
+          age: "32",
+          location: "Hollywood, CA"
+        }
+      ]
+    }
+ }
  */
 ```
 
@@ -174,10 +178,12 @@ fetch("http://localhost:3000/insert-one", {
     database: "test",
     dataSource: "Cluster0",
     apiKey: <pre-generated-api-key>,
-    document: {
-        name: "Sandy"
-        age: 30,.
-        location: "Miami, FL"
+    data: {
+      document: {
+          name: "Sandy"
+          age: 30,.
+          location: "Miami, FL"
+      }
     }
 }).then((res) => {
     console.log(res)
@@ -187,20 +193,23 @@ fetch("http://localhost:3000/insert-one", {
 /* 
 {
     status: "OK",
-    documents: [
-      {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-      },
-      {
-        _id: "3753645334",
-        name: "Amanda",
-        age: "32",
-        location: "Hollywood, CA"
-      }
-    ]
+    statusCode: 200,
+    data: {
+      documents: [
+        {
+          _id: "347538673463"
+          name: "Tony",
+          age: 32,
+          location: "Miami, FL"
+        },
+        {
+          _id: "3753645334",
+          name: "Amanda",
+          age: "32",
+          location: "Hollywood, CA"
+        }
+      ]
+   }
 }
  */
 ```
@@ -211,7 +220,7 @@ fetch("http://localhost:3000/insert-one", {
 ```http
   POST /insert-many
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -237,11 +246,14 @@ fetch("http://localhost:3000/find-one", {
 /* 
 {
     status: "OK",
-    document: {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
+    statusCode: 200,
+    data: {
+         document: {
+            _id: "347538673463"
+            name: "Tony",
+            age: 32,
+            location: "Miami, FL"
+        }
     }
 }
  */
