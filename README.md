@@ -1,14 +1,16 @@
 
-# MongoDB Api NodeJS Server
+<!--  -->
+# MongoDB Data Api - NodeJS Server
 
 An API NodeJS server designed for people who just want to connect to their Mongodb cluster in an easy and effortless way.
 
-
+<!--  -->
 ## License
 
 [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
 
 
+<!--  -->
 ## Contributing
 
 Contributions are always welcome!
@@ -18,6 +20,7 @@ See `contributing.md` for ways to get started.
 Please adhere to this project's `code_of_conduct`.
 
 
+<!--  -->
 ## Run Locally
 
 Clone the project
@@ -45,9 +48,10 @@ Start the server
 ```
 
 
+<!--  -->
 ## Features
 
-- Fing a single docs - `/find-one`
+- Fing a single doc - `/find-one`
 - Find all docs - `/find-all`
 - Insert a single doc - `/insert-one`
 - Insert multiple docs - `/insert-many`
@@ -59,10 +63,11 @@ Start the server
 - Replace multiple docs - `/aggregate`
 - Generates api key for usage - `/api-key-generator`
 
+
+<!--  -->
 ## API Reference
 
-### Find one item in the collection
-
+### Find 1 item in the collection
 ```http
   POST /find-one
 ```
@@ -78,12 +83,12 @@ Start the server
 
 
 ##### Usage/Examples
-
 ```javascript
 fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
     filter: {
         name: "Tony"
     }
@@ -106,7 +111,6 @@ fetch("http://localhost:3000/find-one", {
 ```
 
 ### Get all items in the collection
-
 ```http
   POST /find-all
 ```
@@ -123,7 +127,8 @@ fetch("http://localhost:3000/find-one", {
 fetch("http://localhost:3000/find-all", {
     collection: "users",
     database: "test",
-    dataSource: "Cluster0"
+    dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
 }).then((res) => {
     console.log(res)
 })
@@ -168,6 +173,7 @@ fetch("http://localhost:3000/insert-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>,
     document: {
         name: "Sandy"
         age: 30,.
@@ -219,6 +225,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
     filter: {
         name: "Tony"
     }
@@ -257,12 +264,17 @@ fetch("http://localhost:3000/find-one", {
 ##### Usage/Examples
 
 ```javascript
-fetch("http://localhost:3000/find-one", {
+fetch("http://localhost:3000/update-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
     filter: {
         name: "Tony"
+    },
+    update: {
+      name: "Tony Romas",
+      age: 99
     }
 }).then((res) => {
     console.log(res)
@@ -303,6 +315,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
     filter: {
         name: "Tony"
     }
@@ -344,6 +357,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
     filter: {
         name: "Tony"
     }
@@ -384,6 +398,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
     filter: {
         name: "Tony"
     }
@@ -425,6 +440,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
     filter: {
         name: "Tony"
     }
@@ -468,6 +484,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>
     filter: {
         name: "Tony"
     }
@@ -496,7 +513,7 @@ Yes.
 
 ### Where do I get the api key for usage.
 
-You will generate it using the `/api-key-generator` endpoint.
+You will generate it by accessing the `/api-key-generator` endpoint.
 
 
 ## Authors
