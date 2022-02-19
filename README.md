@@ -81,9 +81,11 @@ API_KEY=KEY_GOES_HERE
 
 -----------
 
+## API Reference
+
 
 ### Generate API Key
- ```You'll have to generate an API Key from the `/api-key-generator` endpoint```
+ You'll have to generate an API Key from the `/api-key-generator` endpoint before using the API.
 
 ```http
   POST /api-key-generator
@@ -94,18 +96,21 @@ API_KEY=KEY_GOES_HERE
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
 
-
-### Usage/Examples
+##### Usage/Examples
 
 ```javascript
-fetch("http://localhost:3000/find-one", {
-    collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>,
-    filter: {
-        name: "Tony"
-    }
+fetch("http://localhost:3000/api-key-generator", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
+    collection: "api_keys",
+    database: "test_db",
+    dataSource: "cluster",
+    length: 365 // 365 = 1 yr, 730 = 2 yrs, etc
+
+  }  
 }).then((res) => {
     console.log(res)
 })
@@ -113,19 +118,18 @@ fetch("http://localhost:3000/find-one", {
 /*** EXAMPLE RESPONSE ***/
 /* 
 {
-    status: "OK",
-    document: {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-    }
+    "status": "OK",
+    "data": {
+        "insertedId": "62103b0ecbb4fe74ac924feb",
+        "apiKey": "b52aff1af3c58f0cd50b9ae5da66",
+        "apiKeyExpiration": "2/19/2024, 12:34:22 AM"
+    },
+    "statusCode": 200
 }
  */
 ```
 
 <!--  -->
-## API Reference
 
 ###  Find a single item in the collection
 ```http
@@ -145,13 +149,19 @@ fetch("http://localhost:3000/find-one", {
 ###### Usage/Examples
 ```javascript
 fetch("http://localhost:3000/find-one", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -188,10 +198,16 @@ fetch("http://localhost:3000/find-one", {
 
 ```javascript
 fetch("http://localhost:3000/find-all", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -237,17 +253,21 @@ fetch("http://localhost:3000/find-all", {
 ##### Usage/Examples
 ```javascript
 fetch("http://localhost:3000/insert-one", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
-    data: {
-      document: {
-          name: "Sandy"
-          age: 30,.
-          location: "Miami, FL"
-      }
+    document: {
+        name: "Sandy"
+        age: 30,.
+        location: "Miami, FL"
     }
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -294,15 +314,21 @@ fetch("http://localhost:3000/insert-one", {
 
 ```javascript
 fetch("http://localhost:3000/insert-many", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     documents: [
       {
         
       }
     ]
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -342,9 +368,14 @@ fetch("http://localhost:3000/insert-many", {
 
 ```javascript
 fetch("http://localhost:3000/update-one", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
@@ -353,6 +384,7 @@ fetch("http://localhost:3000/update-one", {
       name: "Tony Romas",
       age: 99
     }
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -389,13 +421,19 @@ fetch("http://localhost:3000/update-one", {
 
 ```javascript
 fetch("http://localhost:3000/find-one", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body:{
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -431,13 +469,19 @@ fetch("http://localhost:3000/find-one", {
 
 ```javascript
 fetch("http://localhost:3000/find-one", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -472,13 +516,19 @@ fetch("http://localhost:3000/find-one", {
 
 ```javascript
 fetch("http://localhost:3000/find-one", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -514,13 +564,19 @@ fetch("http://localhost:3000/find-one", {
 
 ```javascript
 fetch("http://localhost:3000/find-one", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
+  }
 }).then((res) => {
     console.log(res)
 })
@@ -558,13 +614,19 @@ fetch("http://localhost:3000/find-one", {
 
 ```javascript
 fetch("http://localhost:3000/find-one", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  }
+  body: {
     collection: "users",
-    database: "test",
-    dataSource: "Cluster0",
+    database: "test_db",
+    dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
+  }
 }).then((res) => {
     console.log(res)
 })
