@@ -107,7 +107,9 @@ fetch("http://localhost:3000/api-key-generator", {
   body: {
     collection: "api_keys",
     database: "test_db",
-    dataSource: "cluster"
+    dataSource: "cluster",
+    length: 365 // 365 = 1 yr, 730 = 2 yrs, etc
+
   }  
 }).then((res) => {
     console.log(res)
@@ -118,8 +120,9 @@ fetch("http://localhost:3000/api-key-generator", {
 {
     "status": "OK",
     "data": {
-        "insertedId": "62103847f4b38b5768005edf"
-        "apiKey": "16d55318624045c3",
+        "insertedId": "62103b0ecbb4fe74ac924feb",
+        "apiKey": "b52aff1af3c58f0cd50b9ae5da66",
+        "apiKeyExpiration": "2/19/2024, 12:34:22 AM"
     },
     "statusCode": 200
 }
