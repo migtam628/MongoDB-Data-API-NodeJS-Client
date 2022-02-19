@@ -103,7 +103,7 @@ fetch("http://localhost:3000/api-key-generator", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "api_keys",
     database: "test_db",
@@ -152,7 +152,7 @@ fetch("http://localhost:3000/find-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
@@ -201,7 +201,7 @@ fetch("http://localhost:3000/find-all", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
@@ -256,7 +256,7 @@ fetch("http://localhost:3000/insert-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
@@ -317,7 +317,7 @@ fetch("http://localhost:3000/insert-many", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
@@ -371,7 +371,7 @@ fetch("http://localhost:3000/update-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
@@ -424,7 +424,7 @@ fetch("http://localhost:3000/find-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body:{
     collection: "users",
     database: "test_db",
@@ -472,7 +472,7 @@ fetch("http://localhost:3000/find-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
@@ -519,7 +519,7 @@ fetch("http://localhost:3000/find-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
@@ -567,7 +567,7 @@ fetch("http://localhost:3000/find-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
@@ -617,7 +617,7 @@ fetch("http://localhost:3000/find-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-  }
+  },
   body: {
     collection: "users",
     database: "test_db",
