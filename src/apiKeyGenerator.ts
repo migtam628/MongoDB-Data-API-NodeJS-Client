@@ -3,7 +3,7 @@ import { MongoDBAPIRequest } from "./MongoDBAPIRequest";
 
 export function apiKeyGenerator(req: any, res: any) {
   const apiKey = crypto.randomBytes(getRandomInt(12, 16)).toString("hex");
-  const { collection, database, dataSource } = req.body;
+  const { collection, database, dataSource, length } = req.body;
   let request: TInsertOneBody = {
     action: "insertOne",
     collection: collection,
@@ -11,7 +11,7 @@ export function apiKeyGenerator(req: any, res: any) {
     dataSource: dataSource,
     document: {
       apiKey: apiKey,
-      apiKeyExpiration: new Date().getTime() + 1000 * 60 * 60 * 24 * 730,
+      apiKeyExpiration: new Date().getTime() + 1000 * 60 * 60 * 24 * length || 365,
     },
   };
 
@@ -35,7 +35,7 @@ export function apiKeyGenerator(req: any, res: any) {
         ...r,
         apiKey: apiKey,
         apiKeyExpiration: msToDays(
-          new Date().getTime() + 1000 * 60 * 60 * 24 * 730
+          new Date().getTime() + 1000 * 60 * 60 * 24 * length || 365
         ),
       },
       statusCode: r.status || 200,
