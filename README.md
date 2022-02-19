@@ -10,6 +10,9 @@ An API NodeJS server designed for people who just want to connect to their Mongo
 [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
 
 
+-----------
+
+
 <!--  -->
 ## Contributing
 
@@ -20,59 +23,116 @@ See `contributing.md` for ways to get started.
 Please adhere to this project's `code_of_conduct`.
 
 
+-----------
+
+
 <!--  -->
 ## Run Locally
 
-Clone the project
+#### Clone the project
 
 ```bash
   git clone https://github.com/migtam628/mongoApiServer.v.122
 ```
 
-Go to the project directory
+#### Go to the project directory
 
 ```bash
   cd mongoApiServer.v.122
 ```
 
-Install dependencies
+#### Obtain the URL Endpoint and API Key
+![](https://raw.githubusercontent.com/migtam628/random_files/master/OBTAIN_API_KEY.png?token=GHSAT0AAAAAABRWG3MOHP6WBWJCG3QO2PP6YQZJCNA)
+
+#### Add it to the .env file
+```env
+URL_ENDPOINT=URL_GOES_HERE
+API_KEY=KEY_GOES_HERE
+```
+
+#### Install dependencies
 
 ```bash
   npm install
 ```
 
-Start the server
+#### Start the server
 
 ```bash
   npm run start
 ```
 
+-----------
 
 <!--  -->
-## Features
+## Endpoints
 
-- Fing a single doc - `/find-one`
-- Find all docs - `/find-all`
-- Insert a single doc - `/insert-one`
-- Insert multiple docs - `/insert-many`
-- Delete a single doc - `/delete-one`
-- Delete multiple docs - `/delete-many`
-- Update a single docs - `/update-one`
-- Update multiple docs - `/update-many`
-- Replace a single docs - `/replace-one`
-- Replace multiple docs - `/aggregate`
-- Generates api key for usage - `/api-key-generator`
+- `/api-key-generator` - Generates api key for usage
+- `/find-one` - Fing a single doc
+- `/find-all` - Find all docs
+- `/insert-one` - Insert a single doc
+- `/insert-many` - Insert multiple docs
+- `/delete-one` - Delete a single doc
+- `/delete-many` - Delete multiple docs
+- `/update-one` - Update a single docs
+- `/update-many` - Update multiple docs
+- `/replace-one` - Replace a single docs
+- `/aggregate` - Replace multiple docs
 
+-----------
+
+
+### Generate API Key
+ ```You'll have to generate an API Key from the `/api-key-generator` endpoint```
+
+```http
+  POST /api-key-generator
+```
+| Body Param | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `database` | `string` | **Required**. The name of the database. |
+| `collection` | `string` | **Required**. The name of the collection. |
+| `dataSource` | `string` | **Required**. The name of the cluster. |
+
+
+### Usage/Examples
+
+```javascript
+fetch("http://localhost:3000/find-one", {
+    collection: "users",
+    database: "test",
+    dataSource: "Cluster0",
+    apiKey: <pre-generated-api-key>,
+    filter: {
+        name: "Tony"
+    }
+}).then((res) => {
+    console.log(res)
+})
+
+/*** EXAMPLE RESPONSE ***/
+/* 
+{
+    status: "OK",
+    document: {
+        _id: "347538673463"
+        name: "Tony",
+        age: 32,
+        location: "Miami, FL"
+    }
+}
+ */
+```
 
 <!--  -->
 ## API Reference
 
-### Find 1 item in the collection
+###  Find a single item in the collection
 ```http
   POST /find-one
 ```
 
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -82,13 +142,13 @@ Start the server
 | `projection` | `object` | **Optional**. Depending on the projection, the returned document will either omit specific fields or include only specified fields or values |
 
 
-##### Usage/Examples
+###### Usage/Examples
 ```javascript
 fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
+    apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
@@ -111,25 +171,27 @@ fetch("http://localhost:3000/find-one", {
  */
 ```
 
-### Get all items in the collection
+---
+
+###  Get all items in the collection
 ```http
   POST /find-all
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
 
-##### Usage/Examples
+###### Usage/Examples
 
 ```javascript
 fetch("http://localhost:3000/find-all", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
+    apiKey: <pre-generated-api-key>,
 }).then((res) => {
     console.log(res)
 })
@@ -158,13 +220,14 @@ fetch("http://localhost:3000/find-all", {
  }
  */
 ```
+----
 
-### Insert one item to a collection
+#### Insert one item to a collection
 
 ```http
   POST /insert-one
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -230,14 +293,16 @@ fetch("http://localhost:3000/insert-one", {
 ##### Usage/Examples
 
 ```javascript
-fetch("http://localhost:3000/find-one", {
+fetch("http://localhost:3000/insert-many", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
-    filter: {
-        name: "Tony"
-    }
+    apiKey: <pre-generated-api-key>,
+    documents: [
+      {
+        
+      }
+    ]
 }).then((res) => {
     console.log(res)
 })
@@ -265,7 +330,7 @@ fetch("http://localhost:3000/find-one", {
 ```http
   POST /update-one
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -280,7 +345,7 @@ fetch("http://localhost:3000/update-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
+    apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     },
@@ -312,7 +377,7 @@ fetch("http://localhost:3000/update-one", {
 ```http
   POST /update-many
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -327,7 +392,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
+    apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
@@ -355,7 +420,7 @@ fetch("http://localhost:3000/find-one", {
 ```http
   POST /delete-one
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -369,7 +434,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
+    apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
@@ -396,7 +461,7 @@ fetch("http://localhost:3000/find-one", {
 ```http
   POST /delete-all
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -410,7 +475,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
+    apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
@@ -437,7 +502,7 @@ fetch("http://localhost:3000/find-one", {
 ```http
   POST /replace-one
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -452,7 +517,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
+    apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
@@ -481,7 +546,7 @@ fetch("http://localhost:3000/find-one", {
 ```http
   POST /aggregate
 ```
-| Parameter | Type     | Description                |
+| Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `apiKey` | `string` | **Required**. Your API key |
 | `database` | `string` | **Required**. The name of the database. |
@@ -496,7 +561,7 @@ fetch("http://localhost:3000/find-one", {
     collection: "users",
     database: "test",
     dataSource: "Cluster0",
-    apiKey: <pre-generated-api-key>
+    apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
     }
@@ -517,16 +582,8 @@ fetch("http://localhost:3000/find-one", {
 }
  */
 ```
-## FAQ
 
-### Do I need a MongoDB account?
-
-Yes.
-
-### Where do I get the api key for usage.
-
-You will generate it by accessing the `/api-key-generator` endpoint.
-
+-----------
 
 ## Authors
 
