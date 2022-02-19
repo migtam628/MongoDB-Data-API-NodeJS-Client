@@ -11,12 +11,11 @@ export async function MongoDBAPIRequest(
   const body = getMongoDBRequestBody(requestBody);
   const config: AxiosRequestConfig = {
     method: "post",
-    url: `https://data.mongodb-api.com/app/data-caeec/endpoint/data/beta/action/${requestBody.action}`,
+    url: `${process.env.URL_ENDPOINT}${requestBody.action}`,
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Request-Headers": "*",
-      "api-key":
-        "AjRIguY1Nxm5IAFvNbZuLzizEeLEdtwDqBHzIrsuhaY5LTsrGSIThnX91G8fRfPA",
+      "api-key": process.env.API_KEY || "",
     },
     data: body,
   };
