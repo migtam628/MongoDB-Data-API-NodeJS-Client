@@ -32,7 +32,7 @@ Please adhere to this project's `code_of_conduct`.
 #### Clone the project
 
 ```bash
-  git clone https://github.com/migtam628/mongoApiServer.v.122
+  git clone https://github.com/migtam628/MongoDB-Data-API-NodeJS-Client
 ```
 
 #### Go to the project directory
