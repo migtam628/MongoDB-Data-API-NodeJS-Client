@@ -19,7 +19,7 @@ export function FindOne(req: any, res: any) {
   };
   if (filter)
     MongoDBAPIRequest(request, (r) =>
-      res.json({ status: r.name || "OK", data: r, statusCode: r.status || 200 })
+      res.json({ status: r.name || "OK", data: r, statusCode: r.status })
     );
   else res.json({ statusCode: 422, error: "filter query is required" });
 }
