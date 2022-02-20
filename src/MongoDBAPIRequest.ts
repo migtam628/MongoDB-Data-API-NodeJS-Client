@@ -11,7 +11,7 @@ export async function MongoDBAPIRequest(
   const body = getMongoDBRequestBody(requestBody);
   const config: AxiosRequestConfig = {
     method: "post",
-    url: `${process.env.URL_ENDPOINT}${requestBody.action}`,
+    url: `${process.env.URL_ENDPOINT}/action/${requestBody.action}`,
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Request-Headers": "*",
