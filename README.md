@@ -1,6 +1,6 @@
 
 <!--  -->
-# MongoDB Data Api - NodeJS Server
+# MongoDB Data Api - NodeJS Client Server
 
 An API NodeJS server designed for people who just want to connect to their Mongodb cluster in an easy and effortless way.
 
