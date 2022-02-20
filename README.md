@@ -109,7 +109,6 @@ fetch("http://localhost:3000/api-key-generator", {
     database: "test_db",
     dataSource: "cluster",
     length: 365 // 365 = 1 yr, 730 = 2 yrs, etc
-
   }  
 }).then((res) => {
     console.log(res)
@@ -249,6 +248,7 @@ fetch("http://localhost:3000/find-all", {
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+|`document`|`object`| **Required**.A document to insert into the collection. |
 
 ##### Usage/Examples
 ```javascript
@@ -276,23 +276,10 @@ fetch("http://localhost:3000/insert-one", {
 /* 
 {
     status: "OK",
-    statusCode: 200,
     data: {
-      documents: [
-        {
-          _id: "347538673463"
-          name: "Tony",
-          age: 32,
-          location: "Miami, FL"
-        },
-        {
-          _id: "3753645334",
-          name: "Amanda",
-          age: "32",
-          location: "Hollywood, CA"
-        }
-      ]
-   }
+        "insertedId": "62118524c854e29de7b1bf7e"
+    },
+    statusCode: 200
 }
  */
 ```
@@ -309,6 +296,7 @@ fetch("http://localhost:3000/insert-one", {
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+|`documents`|`object[]`| **Required**. An array of documents to insert into the collection. |
 
 ##### Usage/Examples
 
@@ -337,15 +325,13 @@ fetch("http://localhost:3000/insert-many", {
 /* 
 {
     status: "OK",
-    statusCode: 200,
     data: {
-         document: {
-            _id: "347538673463"
-            name: "Tony",
-            age: 32,
-            location: "Miami, FL"
-        }
-    }
+        insertedIds: [
+            "62118581c9a398f2d7e0b459",
+            "62118581c9a398f2d7e0b45a"
+        ]
+    },
+    statusCode: 200
 }
  */
 ```
@@ -362,6 +348,9 @@ fetch("http://localhost:3000/insert-many", {
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+| `filter` | `object` | **Required**. A MongoDB Query Filter. This modifies the first document in the collection that matches this filter. |
+| `update` | `object` | **Required**. A MongoDB Update Expression that specifies how to modify the matched document. |
+| `upsert` | `boolean` | **Required**. The upsert flag only applies if no documents match the specified filter. If true, the updateOne action inserts a new document that matches the filter with the specified update applied to it.|
 
 
 ##### Usage/Examples
@@ -393,12 +382,11 @@ fetch("http://localhost:3000/update-one", {
 /* 
 {
     status: "OK",
-    document: {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-    }
+    data: {
+        matchedCount: 1,
+        modifiedCount: 1
+    },
+    statusCode: 200
 }
  */
 ```
@@ -415,12 +403,15 @@ fetch("http://localhost:3000/update-one", {
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+| `filter` | `object` | **Required**. A MongoDB Query Filter. The updateMany action modifies all documents in the collection that match this filter. |
+| `update` | `object` | **Required**. A MongoDB Update Expression that specifies how to modify matched documents. |
+| `upsert` | `boolean` | **Required**. The upsert flag only applies if no documents match the specified filter. If true, the updateMany action inserts a new document that matches the filter with the specified update applied to it. |
 
 
 ##### Usage/Examples
 
 ```javascript
-fetch("http://localhost:3000/find-one", {
+fetch("http://localhost:3000/update-many", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -431,7 +422,12 @@ fetch("http://localhost:3000/find-one", {
     dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
     filter: {
-        name: "Tony"
+      name: "unknown"
+    },
+    updates: {
+      "$set": {
+        "name": "ANNONYMOUS",
+      }
     }
   }
 }).then((res) => {
@@ -442,12 +438,11 @@ fetch("http://localhost:3000/find-one", {
 /* 
 {
     status: "OK",
-    document: {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-    }
+    data: {
+        matchedCount: 1,
+        modifiedCount: 1
+    },
+    statusCode: 200
 }
  */
 ```
@@ -464,11 +459,13 @@ fetch("http://localhost:3000/find-one", {
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+| `filter` | `object` | **Required**. 	
+A MongoDB Query Filter. The deleteOne action deletes the first document in the collection that matches this filter. |
 
 ##### Usage/Examples
 
 ```javascript
-fetch("http://localhost:3000/find-one", {
+fetch("http://localhost:3000/delete-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -489,21 +486,19 @@ fetch("http://localhost:3000/find-one", {
 /*** EXAMPLE RESPONSE ***/
 /* 
 {
-    status: "OK",
-    document: {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-    }
+    "status": "OK",
+    "data": {
+        "deletedCount": 1
+    },
+    "statusCode": 200
 }
  */
 ```
 
-### Delete all items in a collection
+### Delete mnany items in a collection at the same time
 
 ```http
-  POST /delete-all
+  POST /delete-many
 ```
 | Body Param | Type     | Description                |
 | :-------- | :------- | :------------------------- |
@@ -511,11 +506,12 @@ fetch("http://localhost:3000/find-one", {
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+| `filter` | `object` | **Required**. A MongoDB Query Filter. The deleteMany action deletes all documents in the collection that match this filter. |
 
 ##### Usage/Examples
 
 ```javascript
-fetch("http://localhost:3000/find-one", {
+fetch("http://localhost:3000/delete-many", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -525,8 +521,8 @@ fetch("http://localhost:3000/find-one", {
     database: "test_db",
     dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
-    filter: {
-        name: "Tony"
+    filter: { 
+      status: "complete" 
     }
   }
 }).then((res) => {
@@ -536,13 +532,11 @@ fetch("http://localhost:3000/find-one", {
 /*** EXAMPLE RESPONSE ***/
 /* 
 {
-    status: "OK",
-    document: {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-    }
+    "status": "OK",
+    "data": {
+        "deletedCount": 1
+    },
+    "statusCode": 200
 }
  */
 ```
@@ -558,12 +552,15 @@ fetch("http://localhost:3000/find-one", {
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+|`filter`|`object`|**Required**. A MongoDB Query Filter. The replaceOne action overwrites the first document in the collection that matches this filter.|
+|`replacement`|`object`|**Required**. An EJSON document that overwrites the matched document.|
+|`upsert`|`object`|**Required**. The upsert flag only applies if no documents match the specified filter. If true, the replaceOne action inserts the replacement document.|
 
 
 ##### Usage/Examples
 
 ```javascript
-fetch("http://localhost:3000/find-one", {
+fetch("http://localhost:3000/replace-one", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -575,6 +572,10 @@ fetch("http://localhost:3000/find-one", {
     apiKey: <pre-generated-api-key>,
     filter: {
         name: "Tony"
+    },
+    repalcement: {
+        name: "Tony Montana",
+        age: 32
     }
   }
 }).then((res) => {
@@ -584,13 +585,12 @@ fetch("http://localhost:3000/find-one", {
 /*** EXAMPLE RESPONSE ***/
 /* 
 {
-    status: "OK",
-    document: {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-    }
+    "status": "OK",
+    "data": {
+        "matchedCount": 1,
+        "modifiedCount": 1
+    },
+    "statusCode": 200
 }
  */
 ```
@@ -608,12 +608,13 @@ fetch("http://localhost:3000/find-one", {
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+|`pipeline`|`object[]`|**Required**. A MongoDB Aggregation Pipeline. |
 
 
 ##### Usage/Examples
 
 ```javascript
-fetch("http://localhost:3000/find-one", {
+fetch("http://localhost:3000/aggregate", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -623,9 +624,19 @@ fetch("http://localhost:3000/find-one", {
     database: "test_db",
     dataSource: "cluster"
     apiKey: <pre-generated-api-key>,
-    filter: {
-        name: "Tony"
-    }
+    pipeline: [
+      {
+         $match: { age: 32 }
+      },
+      {
+    		$group: { 
+    			name: "$name", 
+    			"totalQuantity": { 
+    				"$sum": "$quantity" 
+    			} 
+    		}
+		}
+    ]
   }
 }).then((res) => {
     console.log(res)
@@ -634,13 +645,16 @@ fetch("http://localhost:3000/find-one", {
 /*** EXAMPLE RESPONSE ***/
 /* 
 {
-    status: "OK",
-    document: {
-        _id: "347538673463"
-        name: "Tony",
-        age: 32,
-        location: "Miami, FL"
-    }
+    "status": "OK",
+    "data": {
+        "documents": [
+            {
+                "_id": "Tony Montana",
+                "totalQuantity": 0
+            }
+        ]
+    },
+    "statusCode": 200
 }
  */
 ```
