@@ -11,3 +11,4 @@
 	"compileOnSave": true,
 	"include": ["src", "types.d.ts"]
 }
+ 
