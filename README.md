@@ -32,13 +32,13 @@ Please adhere to this project's `code_of_conduct`.
 #### Clone the project
 
 ```bash
-  git clone https://github.com/migtam628/MongoDB-Data-API-NodeJS-Client
+  git clone https://github.com/migtam628/MongoDB-Data-API-NodeJS-Client mongoApiServer
 ```
 
 #### Go to the project directory
 
 ```bash
-  cd mongoApiServer.v.122
+  cd mongoApiServer
 ```
 
 #### Obtain the URL Endpoint and API Key
