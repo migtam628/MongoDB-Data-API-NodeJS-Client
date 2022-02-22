@@ -126,6 +126,7 @@ Please adhere to this project's `code_of_conduct`.
 | `database` | `string` | **Required**. The name of the database. |
 | `collection` | `string` | **Required**. The name of the collection. |
 | `dataSource` | `string` | **Required**. The name of the cluster. |
+| `length` | `number` | **Optional**. The length of the API Key expiration. |
 
 ##### Usage/Examples
 
