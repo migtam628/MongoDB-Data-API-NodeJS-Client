@@ -27,7 +27,7 @@ Please adhere to this project's `code_of_conduct`.
 
 
 <!--  -->
-## Run Locally
+## Run server
 
 #### Clone the project
 
