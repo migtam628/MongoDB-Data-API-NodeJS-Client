@@ -15,7 +15,9 @@ import { InsertMany } from "./endpoints/InsertMany";
 import { apiKeyGenerator } from "./apiKeyGenerator";
 
 const app: express.Application = express();
-Initialize(app);
+const port: any = process.env.PORT;
+
+Initialize(app, port);
 
 app.use(apiKeyValidator);
 app.post("/aggregate", Aggregate);

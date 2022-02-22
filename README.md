@@ -32,28 +32,59 @@ Please adhere to this project's `code_of_conduct`.
 #### Clone the project
 
 ```bash
-  git clone https://github.com/migtam628/MongoDB-Data-API-NodeJS-Client mongoApiServer
+  git clone https://github.com/migtam628/MongoDB-Data-API-NodeJS-Client mongoDBApiServer
 ```
 
 #### Go to the project directory
 
 ```bash
-  cd mongoApiServer
+  cd mongoDBApiServer
 ```
 
 #### Obtain the URL Endpoint and API Key
 ![](https://raw.githubusercontent.com/migtam628/random_files/master/OBTAIN_API_KEY.png?token=GHSAT0AAAAAABRWG3MOHP6WBWJCG3QO2PP6YQZJCNA)
 
-#### Add it to the .env file
+#### Add it to the `.env` file
 ```env
-URL_ENDPOINT=URL_GOES_HERE
-API_KEY=KEY_GOES_HERE
+  URL_ENDPOINT=URL_GOES_HERE
+  API_KEY=KEY_GOES_HERE
 ```
 
 #### Install dependencies
 
 ```bash
   npm install
+```
+<br/>
+
+### Option #1: Firebase functions integration
+<br/>
+
+#### Install firebase-tools globally
+```bash
+  npm i -g firebase-tools
+```
+#### Login to your Firebase account
+```bash
+  firebase login
+```
+#### Initiate Firebase in the project
+```bash
+  firebase init
+```
+#### and finally deploy your function
+```bash
+  firebase deploy --only functions:<function-name>
+```
+
+<br/>
+
+### Option #2: Run locally
+<br/>
+
+#### Add the port # to the `.env` file
+```env
+  PORT=PORT_GOES_HERE
 ```
 
 #### Start the server
