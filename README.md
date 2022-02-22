@@ -57,7 +57,7 @@ Please adhere to this project's `code_of_conduct`.
 ```
 <br/>
 
-### Option #1: Firebase functions integration
+### Option #1: Firebase functions deploy
 <br/>
 
 #### Install firebase-tools globally
