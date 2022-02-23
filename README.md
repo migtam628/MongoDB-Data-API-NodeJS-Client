@@ -96,7 +96,7 @@ Please adhere to this project's `code_of_conduct`.
 -----------
 
 <!--  -->
-## Endpoints
+## API Endpoints
 
 - `/api-key-generator` - Generates api key for usage
 - `/find-one` - Fing a single doc
