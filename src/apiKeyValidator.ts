@@ -4,11 +4,12 @@ import { MongoDBAPIRequest } from "./MongoDBAPIRequest";
 
 export const apiKeyValidator = (req: any, res: any, next: any) => {
   const apiKey = req.query.apiKey || req.body.apiKey; 
+	const { collection, database, dataSource } = req.body;
   let request: TFindOneBody = {
     action: "findOne",
-    collection: "apiKeys",
-    database: "ThePicks",
-    dataSource: "Cluster0",
+		collection: collection,
+		database: database,
+		dataSource: dataSource,
     filter: { apiKey: apiKey },
   };
   if (req.url === "/api-key-generator") next();
