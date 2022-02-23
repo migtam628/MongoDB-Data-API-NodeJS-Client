@@ -344,9 +344,14 @@ fetch("http://localhost:3000/insert-many", {
     dataSource: "cluster",
     apiKey: <pre-generated-api-key>,
     documents: [
-      {
-        
-      }
+	{
+	name: "Anthony Romas",
+	age: 54
+	},
+	{
+	name: "Remy Romas",
+	age: 23
+	}
     ]
   }
 }).then((res) => {
