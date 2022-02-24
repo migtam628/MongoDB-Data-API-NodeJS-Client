@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+
+src
+firebase.json
+.firebaserc
+tsconfig.json
+.env
+.circleci
+.gitignore
+.gitattributes
+contributing.md
+README.md
+LICENSE
