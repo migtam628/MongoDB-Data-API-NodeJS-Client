@@ -10,6 +10,7 @@ export async function MongoDBAPIRequest(
 		error: undefined,
 	};
 	const body = getMongoDBRequestBody(requestBody);
+
 	const config: AxiosRequestConfig = {
 		method: "post",
 		url: `${process.env.URL_ENDPOINT}/action/${requestBody.action}`,
@@ -20,7 +21,6 @@ export async function MongoDBAPIRequest(
 		},
 		data: body,
 	};
-
 	axios(config)
 		.then((response) => {
 			DATA.results = response.data;
