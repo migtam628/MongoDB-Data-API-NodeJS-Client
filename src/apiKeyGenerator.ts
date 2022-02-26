@@ -3,7 +3,8 @@ import { MongoDBAPIRequest } from "./MongoDBAPIRequest";
 
 export function apiKeyGenerator(req: any, res: any) {
 	const apiKey = crypto.randomBytes(getRandomInt(12, 16)).toString("hex");
-	const { collection, database, dataSource, length, user } = req.body;
+	const { database, dataSource, length, user } = req.body;
+	let collection = 'apiKeys';
 	let request: TInsertOneBody = {
 		action: "insertOne",
 		collection: collection,
