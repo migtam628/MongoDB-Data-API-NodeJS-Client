@@ -15,7 +15,7 @@ import { InsertMany } from "./endpoints/InsertMany";
 import { apiKeyGenerator } from "./apiKeyGenerator";
 
 const app: express.Application = express();
-const port: any = process.env.PORT;
+const port: any = process.env.PORTT;
 
 Initialize(app, port);
 
@@ -32,7 +32,7 @@ app.post("/insert-many", InsertMany);
 app.post("/replace-one", ReplaceOne); 
 app.post("/api-key-generator", apiKeyGenerator);
 
-console.log(process.env.API_KEY);
-console.log(process.env.URL_ENDPOINT);
+// console.log(process.env.API_KEY);
+// console.log(process.env.URL_ENDPOINT);
 
 export const mongoDBApiServer = functions.https.onRequest(app);
