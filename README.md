@@ -84,7 +84,7 @@ Please adhere to this project's `code_of_conduct`.
 
 #### Add the port # to the `.env` file
 ```env
-  PORT=PORT_GOES_HERE
+  PORTT=PORT_GOES_HERE
 ```
 
 #### Start the server
